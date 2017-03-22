@@ -12,11 +12,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.asus.today_headline_project.R;import com.example.asus.today_headline_project.activity.StartActivity;
 import com.example.asus.todayhead.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
        private LinearLayout linearLayout;
        private List<Integer> list=new ArrayList<>();
        private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+       private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +133,7 @@ private void setAdapter() {
 private void intent() {
     Intent intent=new Intent(MainActivity.this,StartActivity.class);
     startActivity(intent);
+    finish();
     }
 
 }

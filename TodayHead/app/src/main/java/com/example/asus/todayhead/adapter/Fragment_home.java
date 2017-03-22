@@ -63,8 +63,8 @@ public class Fragment_home extends Fragment {
     }
 
     private void setAdapter() {
-       viewPager.setAdapter(new MyFragmentPager(getChildFragmentManager(),getActivity(),list));
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+         viewPager.setAdapter(new MyFragmentPager(getChildFragmentManager(),getActivity(),list));
+         tabLayout.setupWithViewPager(viewPager);
+         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
 }

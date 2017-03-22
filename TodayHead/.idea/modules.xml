@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/slidingmenulibrary/SlidingMenulibrary.iml" filepath="$PROJECT_DIR$/slidingmenulibrary/SlidingMenulibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/TodayHead.iml" filepath="$PROJECT_DIR$/TodayHead.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/slidingmenulibrary/slidingmenulibrary.iml" filepath="$PROJECT_DIR$/slidingmenulibrary/slidingmenulibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xlistviewlibrary/xlistviewlibrary.iml" filepath="$PROJECT_DIR$/xlistviewlibrary/xlistviewlibrary.iml" />
     </modules>
   </component>
 </project>

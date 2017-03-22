@@ -1,23 +1,42 @@
 package com.example.asus.todayhead.activity;
 
-import android.app.FragmentTransaction;
-import android.net.Uri;
-import android.os.Bundle;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.asus.todayhead.R;
 import com.example.asus.todayhead.adapter.Fragment_home;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
+
+import com.example.asus.todayhead.fragment.Fragment2;
+
+import com.example.asus.todayhead.fragment.Fragment3;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.shareboard.SnsPlatform;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
+import cn.smssdk.gui.RegisterPage;
 
 
 /**
@@ -26,22 +45,31 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 public class HomeActivity extends AppCompatActivity {
 
     private FrameLayout frameLayout;
-    private RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
+    private RadioButton radioButton1, radioButton2, radioButton3;
     private RadioGroup radioGroup;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+    private ImageView imageView,imageView2,image_phone,image_seek;
+    public ArrayList<SnsPlatform> platforms = new ArrayList<SnsPlatform>();
+    private SHARE_MEDIA[] list = {SHARE_MEDIA.QQ};
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor edit;
+    private Button button_night;
+    private int theme = R.style.AppTheme;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            theme = savedInstanceState.getInt("theme");
+            setTheme(theme);
+        }
         setContentView(R.layout.activity_home);
+        SMSSDK.initSDK(this, "1c0e2609bb4aa", "a941cdb1b2e606adc23902d0f08b60cf");
+        //初始化JPush
+        JPushInterface.init(this);
+        //设置debug模式
+        JPushInterface.setDebugMode(true);
         initView();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void initView() {
@@ -50,20 +78,99 @@ public class HomeActivity extends AppCompatActivity {
         radioButton1 = (RadioButton) findViewById(R.id.radioButton1);
         radioButton2 = (RadioButton) findViewById(R.id.radioButton2);
         radioButton3 = (RadioButton) findViewById(R.id.radioButton3);
-        radioButton4 = (RadioButton) findViewById(R.id.radioButton4);
-        SlidingMenu slidingMenu = new SlidingMenu(this);
+        imageView= (ImageView) findViewById(R.id.image_toggle);
+        image_seek= (ImageView) findViewById(R.id.image_seek);
+        radioGroup.check(R.id.radioButton1);
+
+        slidigMenuMethod();
+    }
+
+    private void slidigMenuMethod() {
+        final SlidingMenu slidingMenu = new SlidingMenu(this);
         //设置侧滑的方向
         slidingMenu.setMode(SlidingMenu.LEFT);
         //设置不让整个屏幕滑出
-        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
-        //设置屏幕滑出的宽度
-        slidingMenu.setBehindOffset(100);
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+       //设置阴影图片
+//        slidingMenu.setShadowDrawable(R.drawable.common_ic_googleplayservices);
+        //SlidingMenu滑动时的渐变程度
+        slidingMenu.setFadeDegree(0.4f);
+        ////SlidingMenu划出时主页面显示的剩余宽度
+//        slidingMenu.setBehindOffset(350);
+        //设置SlidingMenu菜单的宽度
+        slidingMenu.setBehindWidth(500);
+        //设置滑动时拖拽效果
+        slidingMenu.setBehindScrollScale(1);
         //让侧滑依附在activity上
         slidingMenu.attachToActivity(HomeActivity.this, SlidingMenu.SLIDING_CONTENT);
         //设置侧滑的布局
         slidingMenu.setMenu(R.layout.activity_menu);
 
-       getSupportFragmentManager().beginTransaction().replace(R.id.frame_home,new Fragment_home()).commit();
+        imageView2 = (ImageView) findViewById(R.id.image_qq);
+        button_night = (Button) findViewById(R.id.but_night);
+        image_phone= (ImageView) findViewById(R.id.image_phone);
+
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slidingMenu.toggle();
+            }
+        });
+        image_seek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 Intent intent=new Intent(HomeActivity.this,SeekActivity.class);
+                startActivity(intent);
+            }
+        });
+        image_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final RegisterPage registerPage = new RegisterPage();
+                registerPage.setRegisterCallback(new EventHandler() {
+                    @Override
+                    public void afterEvent(int event, int result, Object data) {
+                        super.afterEvent(event, result, data);
+                        //解析注册结果
+                        if (result == SMSSDK.RESULT_COMPLETE) {
+                            HashMap<String, Object> map = (HashMap<String, Object>) data;
+                            String country = (String) map.get("country");
+                            String phone = (String) map.get("phone");
+                        }
+                    }
+                });
+                registerPage.show(HomeActivity.this);
+            }
+        });
+        initPlatforms();
+        final boolean isauth = UMShareAPI.get(HomeActivity.this).isAuthorize(HomeActivity.this, platforms.get(0).mPlatform);
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(HomeActivity.this, "点击", Toast.LENGTH_LONG).show();
+                if (isauth) {
+                    Toast.makeText(HomeActivity.this, "授权成功", Toast.LENGTH_SHORT).show();
+                    UMShareAPI.get(HomeActivity.this).deleteOauth(HomeActivity.this, platforms.get(0).mPlatform, authListener);
+
+                } else {
+                    Toast.makeText(HomeActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                    UMShareAPI.get(HomeActivity.this).doOauthVerify(HomeActivity.this, platforms.get(0).mPlatform, authListener);
+                }
+            }
+        });
+        button_night.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(HomeActivity.this, "切换", Toast.LENGTH_SHORT).show();
+                theme = (theme == R.style.AppTheme) ? R.style.NightAppTheme : R.style.AppTheme;
+                //重新创建
+                recreate();
+            }
+        });
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_home,new Fragment_home()).commit();
+
         radioListener();
     }
 
@@ -76,10 +183,10 @@ public class HomeActivity extends AppCompatActivity {
                         fragmentManager(new Fragment_home());
                         break;
                     case R.id.radioButton2:
+                        fragmentManager(new Fragment2());
                         break;
                     case R.id.radioButton3:
-                        break;
-                    case R.id.radioButton4:
+                        fragmentManager(new Fragment3());
                         break;
                 }
             }
@@ -88,50 +195,63 @@ public class HomeActivity extends AppCompatActivity {
 
     private void fragmentManager(Fragment fragment) {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction beginTransaction = supportFragmentManager.beginTransaction();
+        FragmentTransaction beginTransaction = supportFragmentManager.beginTransaction();
         beginTransaction.replace(R.id.frame_home, fragment);
         beginTransaction.commit();
-//       getSupportFragmentManager().beginTransaction().replace(R.id.frame_home,new Fragment_main_interface()).commit();
-//        getSupportFragmentManager().beginTransaction().replace(R.id.cehua,new Fragment_side_interface()).commit();
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void initPlatforms() {
+        platforms.clear();
+        for (SHARE_MEDIA e : list) {
+            if (!e.toString().equals(SHARE_MEDIA.GENERIC.toString())) {
+                platforms.add(e.toSnsPlatform());
+            }
+        }
+    }
+
+    UMAuthListener authListener = new UMAuthListener() {
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+            // SocializeUtils.safeShowDialog(dialog);
+        }
+
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            //  SocializeUtils.safeCloseDialog(dialog);
+            Toast.makeText(HomeActivity.this, "成功了", Toast.LENGTH_LONG).show();
+            //  notifyDataSetChanged();
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            //  SocializeUtils.safeCloseDialog(dialog);
+            Toast.makeText(HomeActivity.this, "失败：" + t.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            //   SocializeUtils.safeCloseDialog(dialog);
+            Toast.makeText(HomeActivity.this, "取消了", Toast.LENGTH_LONG).show();
+        }
+    };
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("theme", theme);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Home Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.example.asus.todayhead.activity/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Home Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.example.asus.todayhead.activity/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if(savedInstanceState!=null){
+            savedInstanceState.getInt("theme");
+        }
     }
 }

@@ -34,11 +34,12 @@ public class MainActivity extends AppCompatActivity {
     private ExpandableListView expandableListView;
     private String strUrl="http://api.jisuapi.com/weather/city?appkey=b4d06fdd59ed379f";
     private ArrayList<ExpandableData> list=new ArrayList<>();
-    private ArrayList<ListData> listDatas=new ArrayList<>();
+    private ArrayList<ArrayList<ExpandableData>> listDatas=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        expandableListView= (ExpandableListView) findViewById(R.id.expandableListView);
         boolean netWork = NetWorkUtil.isNetWork(this);
         if (netWork){
             getData();
@@ -50,41 +51,27 @@ public class MainActivity extends AppCompatActivity {
     private void getData() {
 
         MyAsyncTask myAsyncTask=new MyAsyncTask();
-        myAsyncTask.execute();
+        myAsyncTask.execute(strUrl);
 
     }
 
     public class MyAsyncTask extends AsyncTask<String,Integer,String>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... params) {
+            String url = params[0];
             HttpClient httpClient=new DefaultHttpClient();
-            HttpPost httpPost=new HttpPost(strUrl);
+            HttpPost httpPost=new HttpPost(url);
             try {
                 HttpResponse response = httpClient.execute(httpPost);
                 if (response.getStatusLine().getStatusCode()==200){
                     InputStream inputStream = response.getEntity().getContent();
                     String str = StrUtils.str(inputStream);
-                    Gson gson=new Gson();
-                    CityData cityData = gson.fromJson(str, CityData.class);
-                    List<CityData.ResultBean> resultBeanList = cityData.getResult();
-                    for (int i=0;i<resultBeanList.size();i++){
-                        CityData.ResultBean resultBean = resultBeanList.get(i);
-                        String parentid = resultBean.getParentid();
-                        ListData listData=new ListData();
-                        if (parentid.equals("0")){
-                            listData.setCity(resultBean.getCity());
-                            listData.setParentid(parentid);
-                        }else{
-                            ExpandableData expandableData=new ExpandableData();
-                            expandableData.setCity(expandableData.getCity());
-                            expandableData.setParentid(parentid);
-                            list.add(expandableData);
-                            listData.setList(list);
-                        }
-                        listDatas.add(listData);
-                    }
-
+                    return str;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -93,9 +80,32 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            expandableListView.setAdapter(new ListAdapter(MainActivity.this,listDatas));
+            String str=s.toString();
+            Gson gson=new Gson();
+            ListData listData = gson.fromJson(str, ListData.class);
+            ArrayList<ExpandableData> datas = listData.resultix;
+            for (ExpandableData city:datas){
+                if (city.parentid.equals("0")){
+                    list.add(city);
+                }
+            }
+            for (ExpandableData expandable:list){
+                ArrayList<ExpandableData> childList=new ArrayList<>();
+                for (ExpandableData city:datas){
+                    if (expandable.cityid.equals(city.parentid)){
+                        childList.add(city);
+                    }
+                }
+                listDatas.add(childList);
+            }
+            expandableListView.setAdapter(new ListAdapter(MainActivity.this,list,listDatas));
         }
     }
 }

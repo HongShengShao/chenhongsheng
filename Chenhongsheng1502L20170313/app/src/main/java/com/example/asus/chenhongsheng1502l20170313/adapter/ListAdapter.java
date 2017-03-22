@@ -7,6 +7,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.example.asus.chenhongsheng1502l20170313.R;
+import com.example.asus.chenhongsheng1502l20170313.bean.ExpandableData;
 import com.example.asus.chenhongsheng1502l20170313.bean.ListData;
 
 import java.util.ArrayList;
@@ -17,10 +18,12 @@ import java.util.ArrayList;
 public class ListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private ArrayList<ListData> list;
+    private ArrayList<ExpandableData> childList;
+    private ArrayList<ArrayList<ExpandableData>> list;
 
-    public ListAdapter(Context context, ArrayList<ListData> list) {
+    public ListAdapter(Context context, ArrayList<ExpandableData> childList, ArrayList<ArrayList<ExpandableData>> list) {
         this.context = context;
+        this.childList = childList;
         this.list = list;
     }
 
@@ -31,7 +34,7 @@ public class ListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return list.get(groupPosition).getList().size();
+        return list.get(groupPosition).size();
     }
 
     @Override
@@ -41,7 +44,7 @@ public class ListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return list.get(groupPosition).getList().get(childPosition);
+        return list.get(groupPosition).get(childPosition);
     }
 
     @Override
@@ -51,7 +54,7 @@ public class ListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        return list.get(groupPosition).getList().size();
+        return list.get(groupPosition).size();
     }
 
     @Override
@@ -63,7 +66,7 @@ public class ListAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         convertView=View.inflate(context, R.layout.activity_group,null);
         TextView textView= (TextView) convertView.findViewById(R.id.text_group);
-        textView.setText(list.get(groupPosition).getCity());
+        textView.setText(childList.get(groupPosition).city);
         return convertView;
     }
 
@@ -71,7 +74,7 @@ public class ListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         convertView=View.inflate(context, R.layout.activity_group,null);
         TextView textView= (TextView) convertView.findViewById(R.id.text_group);
-        textView.setText(list.get(groupPosition).getList().get(childPosition).getCity());
+        textView.setText(list.get(groupPosition).get(childPosition).city);
         return convertView;
     }
 

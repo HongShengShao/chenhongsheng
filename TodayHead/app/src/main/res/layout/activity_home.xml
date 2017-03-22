@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?attr/mainBackground"
     >
     <RelativeLayout
         android:layout_width="match_parent"
@@ -9,7 +10,7 @@
         android:background="@color/red_bg"
         >
         <ImageView
-            android:id="@+id/toggleButton"
+            android:id="@+id/image_toggle"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/point_selector"
@@ -25,50 +26,22 @@
             android:layout_centerHorizontal="true"
             />
         <ImageView
-            android:id="@+id/image_home"
+            android:id="@+id/image_seek"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@mipmap/ic_subscibe_search_normal"
+            android:src="@mipmap/search_discover_normal"
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
             />
     </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/linea_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabLayout_home"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            >
-        </android.support.design.widget.TabLayout>
-        <ImageView
-            android:id="@+id/image_seek"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
-            />
-    </LinearLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linea_viewpager"
-        ></android.support.v4.view.ViewPager>
-
 
 
     <FrameLayout
     android:id="@+id/frame_home"
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_weight="1"
+        android:layout_weight="1"
+        android:background="?attr/mainBackground"
     ></FrameLayout>
 
     <RadioGroup
@@ -95,7 +68,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="阳光宽频"
+            android:gravity="center"
             android:button="@null"
+            android:drawableTop="@drawable/point_home_sun_image"
+            android:layout_marginTop="3dp"
+            android:textColor="@drawable/point_home_text"
             />
         <RadioButton
             android:id="@+id/radioButton3"
@@ -104,14 +81,10 @@
             android:layout_weight="1"
             android:text="关注"
             android:button="@null"
-            />
-        <RadioButton
-            android:id="@+id/radioButton4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="登录"
-            android:button="@null"
+            android:gravity="center"
+            android:drawableTop="@drawable/point_home_guanzhu_image"
+            android:layout_marginTop="3dp"
+            android:textColor="@drawable/point_home_text"
             />
     </RadioGroup>
 

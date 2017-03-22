@@ -1,28 +1,21 @@
 package com.example.asus.chenhongsheng1502l20170313.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by asus on 2017/3/13.
  */
-public class ExpandableData {
-    private String city;
-    private String parentid;
+public class ExpandableData implements Serializable{
+    public String city;
+    public String cityid;
+    public String parentid;
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getParentid() {
-        return parentid;
-    }
-
-    public void setParentid(String parentid) {
-        this.parentid = parentid;
-    }
-
-    public ExpandableData() {
+    @Override
+    public String toString() {
+        return "ExpandableData{" +
+                "city='" + city + '\'' +
+                ", cityid='" + cityid + '\'' +
+                ", parentid='" + parentid + '\'' +
+                '}';
     }
 }

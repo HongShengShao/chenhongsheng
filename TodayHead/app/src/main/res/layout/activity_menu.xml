@@ -1,17 +1,267 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/mainBackground"
+    >
   <FrameLayout
-      android:id="@+id/frame"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="侧滑"
-        />
+      android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="150dp"
+          android:orientation="horizontal"
+          android:background="#D4D4D4"
+          >
+        <ImageView
+            android:id="@+id/image_phone"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:src="@mipmap/cellphoneicon_login_profile_normal"
+            android:layout_gravity="center"
+            />
+        <ImageView
+            android:id="@+id/image_qq"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:src="@mipmap/qqicon_login_profile_normal"
+            android:layout_gravity="center"
+            />
+        <ImageView
+            android:id="@+id/image_sina"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:src="@mipmap/sinaicon_login_profile_normal"
+            android:layout_gravity="center"
+            />
+
+      </LinearLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="75dp"
+          >
+        <Button
+            android:id="@+id/but_collect"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:drawableTop="@mipmap/love_jokebar_textpage_normal_night"
+            android:text="收藏"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            android:background="?attr/mainBackground"
+            />
+
+        <Button
+            android:id="@+id/but_history"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:drawableTop="@mipmap/munion_title_suggest_icon_history"
+            android:text="历史"
+            android:textSize="15sp"
+            android:layout_centerHorizontal="true"
+            android:background="?attr/mainBackground"
+            />
+
+        <Button
+            android:id="@+id/but_night"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:drawableTop="@mipmap/nighticon_leftdrawer_normal"
+            android:background="?attr/mainBackground"
+            android:text="夜间"
+            android:textSize="15sp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_below="@id/but_night"
+            android:layout_marginTop="10dp"
+            android:background="#f5f5f5"
+            ></LinearLayout>
+        
+      </RelativeLayout>
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/xiaoxi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="消息通知"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            />
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@mipmap/right_discover_normal"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_alignBottom="@id/xiaoxi"
+            android:layout_marginBottom="3dp"
+            />
+      </RelativeLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="20dp"
+          android:background="#f5f5f5"
+          ></LinearLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/text_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="头条商城"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            />
+        <ImageView
+            android:id="@+id/image_right"
+            android:layout_width="13sp"
+            android:layout_height="13sp"
+            android:src="@mipmap/right_discover_normal"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/text_information"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="3dp"
+            />
+
+        <TextView
+            android:id="@+id/text_yaoqing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="邀请好友得到200元现金"
+            android:textSize="13sp"
+            android:layout_alignBottom="@id/text_information"
+            android:layout_toLeftOf="@id/image_right"
+            android:layout_marginBottom="3dp"
+            />
+
+
+        <TextView
+            android:id="@+id/text_jingdong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="京东特供"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_below="@id/text_information"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            />
+        <ImageView
+            android:id="@+id/image_jingdong"
+            android:layout_width="13sp"
+            android:layout_height="13sp"
+            android:src="@mipmap/right_discover_normal"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/text_jingdong"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="3dp"
+            />
+        <TextView
+            android:id="@+id/text_xinren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新人领188元红包"
+            android:textSize="13sp"
+            android:layout_alignBottom="@id/text_jingdong"
+            android:layout_toLeftOf="@id/image_jingdong"
+            android:layout_marginBottom="3dp"
+            />
+
+      </RelativeLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="20dp"
+          android:background="#f5f5f5"
+          ></LinearLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/text_baoliao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我要爆料"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="10dp"
+            />
+        <ImageView
+            android:id="@+id/image_baoliao"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:src="@mipmap/right_discover_normal"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            />
+        <TextView
+            android:id="@+id/text_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户反馈"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_below="@id/text_baoliao"
+            android:layout_marginLeft="10dp"
+            />
+        <ImageView
+            android:id="@+id/image_user"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:src="@mipmap/right_discover_normal"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/image_baoliao"
+            android:layout_marginRight="20dp"
+            android:layout_alignBottom="@id/text_user"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="系统设置"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_below="@id/text_user"
+            android:layout_marginLeft="10dp"
+            />
+        <ImageView
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:src="@mipmap/right_discover_normal"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/image_user"
+            android:layout_marginRight="20dp"
+            />
+
+
+
+      </RelativeLayout>
+
+    </LinearLayout>
 
   </FrameLayout>
+
 </LinearLayout>

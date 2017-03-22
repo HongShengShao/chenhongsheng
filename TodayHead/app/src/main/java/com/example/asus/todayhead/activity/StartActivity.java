@@ -31,5 +31,6 @@ public class StartActivity extends Activity {
     private void intent() {
         Intent intent=new Intent(this,HomeActivity.class);
         startActivity(intent);
+        finish();
     }
 }
