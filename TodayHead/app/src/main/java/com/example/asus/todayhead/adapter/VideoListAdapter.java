@@ -12,6 +12,9 @@ import com.example.asus.todayhead.R;
 import com.example.asus.todayhead.bean.VideoData;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.xutils.image.ImageOptions;
+import org.xutils.x;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +26,9 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 public class VideoListAdapter extends BaseAdapter {
 
     private Context context;
-    private List<VideoData.V9LG4B3A0Bean>  list;
+    private List<VideoData>  list;
 
-    public VideoListAdapter(Context context, List<VideoData.V9LG4B3A0Bean> list) {
+    public VideoListAdapter(Context context, List<VideoData> list) {
         this.context = context;
         this.list = list;
     }
@@ -64,7 +67,9 @@ public class VideoListAdapter extends BaseAdapter {
         if (setUp) {
 
             Glide.with(context).load(list.get(position).getCover()).into(v.jcVideoPlayerSimple.thumbImageView);
-            ImageLoader.getInstance().displayImage(list.get(position).getTopicImg(),v.imageView);
+            ImageOptions imageOptions=new ImageOptions.Builder().setCircular(true).build();
+            x.image().bind(v.imageView,list.get(position).getTopicImg(),imageOptions);
+//            ImageLoader.getInstance().displayImage(list.get(position).getTopicImg(),v.imageView);
             v.textView.setText(list.get(position).getTopicName());
             v.textView2.setText(list.get(position).getPtime());
         }

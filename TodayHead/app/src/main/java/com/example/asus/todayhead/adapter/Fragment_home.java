@@ -1,5 +1,6 @@
 package com.example.asus.todayhead.adapter;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.annotation.Nullable;
@@ -12,9 +13,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ToggleButton;
 
 import com.example.asus.todayhead.R;
+import com.example.asus.todayhead.activity.Activity_channel_manager;
 import com.example.asus.todayhead.manager.MyFragmentPager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -27,6 +30,7 @@ public class Fragment_home extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private ImageView imageView;
     private ArrayList<String> list=new ArrayList<>();
     @Nullable
 
@@ -35,10 +39,17 @@ public class Fragment_home extends Fragment {
         initView(view);
         return view;
     }
-
     private void initView(View view) {
         tabLayout= (TabLayout) view.findViewById(R.id.tabLayout_home);
         viewPager= (ViewPager) view.findViewById(R.id.viewPager_home);
+        imageView= (ImageView) view.findViewById(R.id.image_seek);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), Activity_channel_manager.class);
+                startActivity(intent);
+            }
+        });
         addListData();
     }
 

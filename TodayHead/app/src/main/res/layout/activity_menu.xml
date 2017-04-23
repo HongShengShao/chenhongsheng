@@ -14,7 +14,15 @@
         android:orientation="vertical"
         >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:background="#D4D4D4"
+        >
+
       <LinearLayout
+          android:id="@+id/lineaLayout_login"
           android:layout_width="match_parent"
           android:layout_height="150dp"
           android:orientation="horizontal"
@@ -44,8 +52,38 @@
             android:src="@mipmap/sinaicon_login_profile_normal"
             android:layout_gravity="center"
             />
-
       </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/lineaLayout_login_qq"
+          android:layout_width="match_parent"
+          android:layout_height="150dp"
+          android:orientation="horizontal"
+          android:background="#D4D4D4"
+          android:visibility="gone"
+          >
+        <ImageView
+            android:id="@+id/image_qq_login_head"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            />
+
+        <TextView
+            android:id="@+id/text_qq_login_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="qq昵称"
+            android:textSize="20sp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            />
+      </LinearLayout>
+
+    </LinearLayout>
+
 
       <RelativeLayout
           android:layout_width="match_parent"
@@ -239,6 +277,7 @@
             android:layout_alignBottom="@id/text_user"
             />
         <TextView
+            android:id="@+id/text_system_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="系统设置"

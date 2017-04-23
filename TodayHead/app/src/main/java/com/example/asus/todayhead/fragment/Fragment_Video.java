@@ -15,9 +15,16 @@ import com.example.asus.todayhead.adapter.VideoListAdapter;
 import com.example.asus.todayhead.bean.VideoData;
 import com.example.asus.todayhead.utils.StrUtil;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +40,9 @@ public class  Fragment_Video extends Fragment {
 
     private ListView listView;
     private int count;
-    private  List<VideoData.V9LG4B3A0Bean> videoList=new ArrayList<>();
+    private  List<VideoData> videoList=new ArrayList<>();
     private  String strUrl;
+    private JSONArray jsonArray;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +50,13 @@ public class  Fragment_Video extends Fragment {
         count=getArguments().getInt("bun");
         Toast.makeText(getActivity(), count+"", Toast.LENGTH_SHORT).show();
     }
+//
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        count=getArguments().getInt("bun");
+//        Toast.makeText(getActivity(), count+"", Toast.LENGTH_SHORT).show();
+//    }
 
     @Nullable
     @Override
@@ -70,32 +85,49 @@ public class  Fragment_Video extends Fragment {
         myAsyncTask.execute(strUrl);
     }
 
-    public class MyAsyncTask extends AsyncTask<String, Integer, List<VideoData.V9LG4B3A0Bean>> {
+    public class MyAsyncTask extends AsyncTask<String, Integer,String> {
 
         @Override
-        protected  List<VideoData.V9LG4B3A0Bean>  doInBackground(String... params) {
+        protected String  doInBackground(String... params) {
             String param = params[0];
             HttpClient httpClient = new DefaultHttpClient();
             HttpGet httpGet = new HttpGet(param);
             try {
+
                 HttpResponse response = httpClient.execute(httpGet);
                 if (response.getStatusLine().getStatusCode() == 200) {
                     InputStream inputStream = response.getEntity().getContent();
                     String str = StrUtil.str(inputStream);
-                    Gson gson = new Gson();
-                    VideoData videoData = gson.fromJson(str, VideoData.class);
-                    videoList= videoData.getV9LG4B3A0();
+                  return str;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return videoList;
+            return null;
         }
 
         @Override
-        protected void onPostExecute( List<VideoData.V9LG4B3A0Bean> s) {
+        protected void onPostExecute( String s) {
             super.onPostExecute(s);
-            listView.setAdapter(new VideoListAdapter(getActivity(),videoList));
+
+            try {
+                if (count==2){
+                     jsonArray= new JSONObject(s).getJSONArray("V9LG4CHOR");
+                }else if (count==3){
+                     jsonArray=new JSONObject(s).getJSONArray("V9LG4E6VR");
+                }else if (count==4){
+                   jsonArray=new JSONObject(s).getJSONArray("00850FRB");
+                }else{
+                    jsonArray=new JSONObject(s).getJSONArray("V9LG4B3A0");
+                }
+                Type type=new TypeToken<List<VideoData>>(){}.getType();
+                Gson gson = new Gson();
+                videoList = gson.fromJson(jsonArray.toString(),type);
+                listView.setAdapter(new VideoListAdapter(getActivity(),videoList));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
     }
 

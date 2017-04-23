@@ -17,7 +17,7 @@ public class MyVideoPagerFragment extends FragmentPagerAdapter {
 
 
     private Context context;
-    private String[] str=new String[]{};
+    private String[] str;
 
     public MyVideoPagerFragment(FragmentManager fm, Context context, String[] str) {
         super(fm);

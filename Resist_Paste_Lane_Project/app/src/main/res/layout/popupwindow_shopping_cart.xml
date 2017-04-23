@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="300dp">
+
+
+    <ImageView
+        android:id="@+id/popup_imageView"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@mipmap/ic_launcher"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_toRightOf="@id/popup_imageView"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/popup_textView_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="价格"
+            />
+        <TextView
+            android:id="@+id/popup_textView_repertory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="库存"
+            />
+        <TextView
+            android:id="@+id/popup_textView_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数量"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout_shopping_number"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/popup_imageView"
+        android:orientation="horizontal"
+        >
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="购买数量"
+           />
+        <Button
+            android:id="@+id/but_subtract"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="30sp"
+            android:layout_marginLeft="200dp"
+            android:background="@android:color/white"
+            />
+        <TextView
+            android:id="@+id/shopping_number"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:text="0"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:id="@+id/but_add"
+            android:textSize="20sp"
+            android:background="@android:color/white"
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/but_confirm"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:text="确定"
+        android:layout_below="@id/linearLayout_shopping_number"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:layout_marginBottom="5dp"
+        />
+</RelativeLayout>

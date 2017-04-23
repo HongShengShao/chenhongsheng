@@ -40,8 +40,4 @@ public class Fragment2 extends Fragment {
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
 
-
-
-
-
 }

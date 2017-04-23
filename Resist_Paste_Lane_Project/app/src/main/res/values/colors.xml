@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorClassifyGridviewText1">#DEDEB9</color>
+    <color name="colorClassifyGridviewText2">#EED4C2</color>
+    <color name="colorClassifyGridviewText3">#D4D7F7</color>
+    <color name="colorClassifyGridviewText4">#D1E1C3</color>
+    <color name="colorClassifyGridviewText5">#F1D2CB</color>
+    <color name="colorClassifyGridviewText6">#BFF1EC</color>
+    <color name="colorText">#FC6B87</color>
+
+</resources>

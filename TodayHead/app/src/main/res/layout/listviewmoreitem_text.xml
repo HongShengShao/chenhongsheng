@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:text="标题"
         />
 
     <TextView
@@ -16,6 +17,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/listViewMoreItem_text_title"
         android:textSize="15sp"
+        android:text="内容"
+        />
+      <ImageView
+          android:id="@+id/listViewMoreItem_text_collect"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@mipmap/uncollect"
+          android:layout_below="@id/listViewMoreItem_text_author"
+          android:layout_alignParentRight="true"
+          android:layout_marginRight="50dp"
+          />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/shared_item"
+        android:layout_below="@id/listViewMoreItem_text_author"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
         />
 
 </RelativeLayout>

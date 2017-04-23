@@ -13,8 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asus.todayhead.R;
@@ -24,10 +26,15 @@ import com.example.asus.todayhead.fragment.Fragment2;
 
 import com.example.asus.todayhead.fragment.Fragment3;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.shareboard.SnsPlatform;
+
+import org.xutils.common.util.DensityUtil;
+import org.xutils.image.ImageOptions;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,12 +55,17 @@ public class HomeActivity extends AppCompatActivity {
     private RadioButton radioButton1, radioButton2, radioButton3;
     private RadioGroup radioGroup;
     private ImageView imageView,imageView2,image_phone,image_seek;
+    private TextView textView_system_set;
     public ArrayList<SnsPlatform> platforms = new ArrayList<SnsPlatform>();
     private SHARE_MEDIA[] list = {SHARE_MEDIA.QQ};
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor edit;
-    private Button button_night;
+    private Button button_night,button_collect;
     private int theme = R.style.AppTheme;
+    private ImageView imageView_qq;
+    private TextView textView_qq;
+    private LinearLayout linearLayout_login;
+    private LinearLayout linearLayout_login_qq;
 
 
     @Override
@@ -82,6 +94,7 @@ public class HomeActivity extends AppCompatActivity {
         image_seek= (ImageView) findViewById(R.id.image_seek);
         radioGroup.check(R.id.radioButton1);
 
+
         slidigMenuMethod();
     }
 
@@ -108,7 +121,14 @@ public class HomeActivity extends AppCompatActivity {
 
         imageView2 = (ImageView) findViewById(R.id.image_qq);
         button_night = (Button) findViewById(R.id.but_night);
+        button_collect= (Button) findViewById(R.id.but_collect);
         image_phone= (ImageView) findViewById(R.id.image_phone);
+        textView_system_set= (TextView) findViewById(R.id.text_system_set);
+        linearLayout_login = (LinearLayout) findViewById(R.id.lineaLayout_login);
+        linearLayout_login_qq = (LinearLayout) findViewById(R.id.lineaLayout_login_qq);
+        imageView_qq = (ImageView) findViewById(R.id.image_qq_login_head);
+        textView_qq = (TextView) findViewById(R.id.text_qq_login_name);
+
 
 
 
@@ -149,7 +169,6 @@ public class HomeActivity extends AppCompatActivity {
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "点击", Toast.LENGTH_LONG).show();
                 if (isauth) {
                     Toast.makeText(HomeActivity.this, "授权成功", Toast.LENGTH_SHORT).show();
                     UMShareAPI.get(HomeActivity.this).deleteOauth(HomeActivity.this, platforms.get(0).mPlatform, authListener);
@@ -167,6 +186,20 @@ public class HomeActivity extends AppCompatActivity {
                 theme = (theme == R.style.AppTheme) ? R.style.NightAppTheme : R.style.AppTheme;
                 //重新创建
                 recreate();
+            }
+        });
+        button_collect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomeActivity.this,CollectActivity.class);
+                startActivity(intent);
+            }
+        });
+        textView_system_set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                  Intent intent=new Intent(HomeActivity.this,SystemSetActivity.class);
+                  startActivity(intent);
             }
         });
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_home,new Fragment_home()).commit();
@@ -225,6 +258,24 @@ public class HomeActivity extends AppCompatActivity {
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
             //  SocializeUtils.safeCloseDialog(dialog);
             Toast.makeText(HomeActivity.this, "成功了", Toast.LENGTH_LONG).show();
+            switch (action){
+                case ACTION_AUTHORIZE:
+                    UMShareAPI mShareAPI = UMShareAPI.get(HomeActivity.this);
+                   mShareAPI.getPlatformInfo(HomeActivity.this, SHARE_MEDIA.QQ,authListener);
+                    break;
+                case ACTION_GET_PROFILE:
+                   String iconurl = data.get("iconurl");
+                   String name = data.get("name");
+                    ImageOptions imageOptions=new ImageOptions.Builder().setCircular(true).build();
+                    x.image().bind(imageView_qq,iconurl,imageOptions);
+//                    ImageLoader.getInstance().displayImage(iconurl,imageView_qq);
+                    textView_qq.setText(name);
+                    linearLayout_login.setVisibility(View.GONE);
+                    linearLayout_login_qq.setVisibility(View.VISIBLE);
+                    Toast.makeText(HomeActivity.this,name+"",Toast.LENGTH_LONG).show();
+                    break;
+            }
+
             //  notifyDataSetChanged();
         }
 

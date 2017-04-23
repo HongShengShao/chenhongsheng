@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    >
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2600dp"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/classify_search_box">
+            <ImageView
+                android:src="@mipmap/search_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请输入商品名称"
+                android:textSize="20dp"
+                android:layout_marginTop="5dp"
+                />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginTop="20dp"
+            >
+
+            <ImageView
+                android:id="@+id/fuzhi1"
+                android:layout_width="160dp"
+                android:layout_height="250dp"
+               android:background="@mipmap/fuzhi1"
+                android:layout_marginLeft="10dp"
+                />
+            <ImageView
+                android:id="@+id/fuzhi2"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:layout_toRightOf="@id/fuzhi1"
+                android:background="@mipmap/fuzhi2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                />
+            <ImageView
+                android:id="@+id/fuzhi3"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:layout_toRightOf="@id/fuzhi2"
+                android:background="@mipmap/fuzhi3"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                />
+            <ImageView
+                android:id="@+id/fuzhi4"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:layout_below="@id/fuzhi2"
+                android:layout_toRightOf="@id/fuzhi1"
+                android:background="@mipmap/fuzhi4"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                />
+            <ImageView
+                android:id="@+id/fuzhi5"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:layout_below="@id/fuzhi3"
+                android:layout_toRightOf="@id/fuzhi4"
+                android:background="@mipmap/fuzhi5"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                />
+            <ImageView
+                android:id="@+id/fuzhi6"
+                android:layout_width="300dp"
+                android:layout_height="80dp"
+                android:layout_below="@id/fuzhi5"
+                android:layout_toRightOf="@id/fuzhi1"
+             android:background="@mipmap/fuzhi6"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="vertical"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/gongxiao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-  按功效  -"
+                    android:layout_centerHorizontal="true"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="美丽从选对产品开始"
+                    android:layout_below="@id/gongxiao"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    />
+            </RelativeLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:id="@+id/gongxiao1"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:background="@mipmap/gongxiao1"
+                    android:layout_marginLeft="10dp"
+                    />
+                <ImageView
+                    android:id="@+id/gongxiao2"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:background="@mipmap/gongxiao2"
+                    android:layout_marginLeft="10dp"
+                    />
+                <ImageView
+                    android:id="@+id/gongxiao3"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:background="@mipmap/gongxiao3"
+                    android:layout_marginLeft="10dp"
+                    />
+                <ImageView
+                    android:id="@+id/gongxiao4"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:background="@mipmap/gongxiao4"
+                    android:layout_marginLeft="10dp"
+                    />
+                <ImageView
+                    android:id="@+id/gongxiao5"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:background="@mipmap/gongxiao5"
+                    android:layout_marginLeft="10dp"
+                    />
+            </LinearLayout>
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="420dp"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/fu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-  按肤质  -"
+                android:layout_centerHorizontal="true"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="适合自己才是最好"
+                android:layout_below="@id/fu"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/classify_recyclerView_fu"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                ></android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1000dp"
+            android:orientation="vertical"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/classify_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                ></android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+
+</ScrollView>

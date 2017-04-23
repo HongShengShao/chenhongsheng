@@ -39,4 +39,23 @@
           android:textSize="15sp"
           />
 
+    <ImageView
+        android:id="@+id/listViewMoreItem_three_image_collect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/listViewMoreItem_three_image_author"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/uncollect"
+        android:layout_marginRight="50dp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/shared_item"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/listViewMoreItem_three_image_author"
+        android:layout_marginRight="20dp"
+        />
+
 </RelativeLayout>

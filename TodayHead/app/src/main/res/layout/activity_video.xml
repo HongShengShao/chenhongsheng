@@ -6,7 +6,7 @@
     <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
         android:id="@+id/jcVideoPlayer"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="350dp">
     </fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard>
     <ImageView
         android:id="@+id/video_image"
